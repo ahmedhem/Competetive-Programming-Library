@@ -78,7 +78,6 @@ int kruskal() {
     int total = 0;
     priority_queue<edge> q;
     for (int i = 0; i < edgList.size(); ++i) {
-
         q.push(edgList[i]);
     }
     while (!q.empty()) {
