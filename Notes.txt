@@ -1,0 +1,8 @@
+• n items can be arranged in n! ways.
+• Number ways you can select k of n items:
+{ Permutations: when order matters
+nPk = n! / (n − k)!
+{ Combinations: when order is unimportant
+nCk = nk = n!/(n-k)!k!
+nCk = choose(n,k)
+NCK %mod= N!/(n-k)!k! %mod = N!%mod*(mod inverse)
