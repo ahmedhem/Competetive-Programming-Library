@@ -10,13 +10,10 @@ int extended_euclidean(int a, int b, int& x, int& y) {
     y = x1 - y1 * (a / b);
     return d;
 }
-
+int modularInverse(int a,int m){
 int x, y,a,b;
 int g = extended_euclidean(a, m, x, y);
-if (g != 1) {
-    cout << "No solution!";
-}
-else {
     x = (x % m + m) % m;
-    cout << x << endl;
+    return x;
+
 }
