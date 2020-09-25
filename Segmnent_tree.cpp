@@ -11,6 +11,14 @@ struct seg_tree {
         fill(seg, seg + n, 1e9 + 1);
         fill(segcnt, segcnt + n, 0);
 
+    }    void check(int p, int l, int r) {
+        if (!lazy[p])return;
+        seg[p] += lazy[p];
+        if (l != 1) {
+            lazy[p * 2] += lazy[p];
+            lazy[p * 2 + 1] += lazy[p];
+        }
+        lazy[p]=0;
     }
 
     void build(int num, int l, int r) { //nlogn where log n is the height of the tree
