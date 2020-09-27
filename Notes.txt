@@ -6,3 +6,5 @@ nPk = n! / (n − k)!
 nCk = nk = n!/(n-k)!k!
 nCk = choose(n,k)
 NCK %mod= N!/(n-k)!k! %mod = N!%mod*(mod inverse)
+------------------------------------------------------
+maxium sum segment = max(seg1,seg2,pre1,suf2);
