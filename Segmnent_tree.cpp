@@ -3,15 +3,32 @@ ll *arr;
 struct seg_tree {
     // size of seg tree doesn't exceed 4*n
     ll *seg;
-    ll *segcnt;
+    ll *lazy;
+/***************iterative**********/
+void update(int u, int x){
+	while(u < NN){
+		B[u] += x;
+  		u += u & (-u);
+	}
+}
 
+int calc(int u){
+	int ss = 0 ;
+	while(u > 0){
+		ss += B[u];
+		u -= u & (-u);
+	}
+	return ss;
+}
+/********************/
     seg_tree(int n) {
         seg = new ll[n];
         segcnt = new ll[n];
         fill(seg, seg + n, 1e9 + 1);
-        fill(segcnt, segcnt + n, 0);
+        fill(lazy, lazy  + n, 0);
 
-    }    void check(int p, int l, int r) {
+    }    void
+    check(int p, int l, int r) {
         if (!lazy[p])return;
         seg[p] += lazy[p];
         if (l != 1) {
