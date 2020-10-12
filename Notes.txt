@@ -10,3 +10,5 @@ NCK %mod= N!/(n-k)!k! %mod = N!%mod*(mod inverse)
 -maxium sum segment = max(seg1,seg2,pre1+suf2);
 -if you call left and right in segment based in condition it will still
 logn
+https://www.commonlounge.com/discussion/0445dc0b5029441481a967ab96801599/b43e5370b8154f8ca8f63c3710a8a671
+very important discussion

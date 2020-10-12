@@ -66,7 +66,7 @@ int calc(int u){
         seg[num] = mn;
         if (mn == seg[num * 2]&&mn == seg[num * 2+1])segcnt[num] = segcnt[num * 2]+segcnt[num*2+1];
         else if (mn == seg[num * 2 + 1])segcnt[num] = segcnt[num * 2 + 1];
-        else segcnt[num] = segcnt[num * 2];
+        else segcnt[num]     = segcnt[num * 2];
     }
     pair<int,int> check(pair<int,int> a,pair<int,int> b){
         int mn=min(a.first,b.first),le=a.first,re=b.first;

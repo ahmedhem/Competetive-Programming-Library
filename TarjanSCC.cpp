@@ -17,7 +17,7 @@ void tarjan(int node) {
         int v = adj[node][i];
         if (!vis[v]) {
             tarjan(v);
-            DL[node] = min(DL[node], DL[v]);
+DL[node] = min(DL[node], DL[v]);
         } else if (inS[v])DL[node] = min(DL[node], DH[v]);
     }
     if (DL[node] == DH[node]) {
@@ -52,7 +52,10 @@ void tarjan(int node) {
             par[v]=node;
             tarjan(v);
             DL[node] = min(DL[node], DL[v]);
-            if(DL[v]>=DH[node]&&par[node]!=-1)st.insert(node);//AP
+            if(DH[node] == DL[node] && node != par[node])
+        bridges.push_back({par[node], node});
+
+            if(DL[v]>=DH[node]&&par[node]!=-   1)st.insert(node);//AP
         } else if (v != par[node])DL[node] = min(DL[node], DH[v]);
     }
 
