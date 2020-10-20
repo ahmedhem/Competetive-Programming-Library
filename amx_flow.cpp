@@ -1,42 +1,34 @@
-#include "bits/stdc++.h"
+onst ll MAX = 305 + 5, INF = INT_MAX;
+ll cap[MAX * MAX * 10];
+int eToe[MAX][MAX];
+ll weight[MAX], maxLift[MAX], ans[MAX * MAX * 10], head[MAX * MAX * 10], to[MAX * MAX * 10], nxt[MAX * MAX * 10], e = 0;
 
-using namespace std;
-typedef long long ll;
-typedef unsigned long long ull;
-typedef double dd;
-#define all(v) v.begin(),v.end()
-#define aint(v) v.begin(),v.end()
-#define endl "\n"
-#define clr(n, r) memset(n,r,sizeof(n))
-typedef bitset<10> MASK;
-typedef pair<int, int> ii;
-typedef vector<ii> vii;
-typedef vector<ll> vi;
-typedef pair<int, int> pi;
-typedef vector<vector<int>> vvi;
-
-//set iterator can be increamnted and decreamnted
-void fast() {
-    cin.tie(0);
-    cin.sync_with_stdio(0);
+void add_edge(ll i, ll j, ll cape) {
+    cap[e] = cape;
+    to[e] = j;
+    nxt[e] = head[i];
+    eToe[i][j] = e;
+    head[i] = e++;
+    cap[e] = 0;
+    to[e] = i;
+    nxt[e] = head[j];
+    eToe[j][i] = e;
+    head[j] = e++;
 }
 
-const int MAX = 1000;
-int cap[MAX][MAX];
-
-int find_path(int start, int sink, vvi &adj) {
-    queue<int> q;
-    int vis[MAX], path[MAX];
+ll find_path(ll start, ll sink) {
+    queue<ll> q;
+    ll vis[MAX], path[MAX];
     q.push(start);
-    clr(vis,0);
+    clr(vis, 0);
     vis[start] = 1;
     clr(path, -1);
     while (!q.empty()) {
-        int node = q.front();
+        ll node = q.front();
         q.pop();
-        for (int j = 0; j < adj[node].size(); ++j) {
-            int v = adj[node][j];
-            if (!vis[v] && cap[node][v] != 0) {
+        for (int k = head[node]; ~k; k = nxt[k]) {
+            int v = to[k];
+            if (!vis[v] && cap[k] != 0) {
                 q.push(v);
                 vis[v] = 1;
                 path[v] = node;
@@ -45,46 +37,37 @@ int find_path(int start, int sink, vvi &adj) {
             }
         }
     }
-    int mn_cap = INT_MAX, now = sink;
+    ll mn_cap = INF, now = sink;
     while (~path[now]) {
-        int prv = path[now];
-        mn_cap = min(mn_cap, cap[prv][now]);
+        ll prv = path[now];
+        mn_cap = min(mn_cap, cap[eToe[prv][now]]);
         now = prv;
     }
     now = sink;
     while (~path[now]) {
-        int prv = path[now];
-        cap[prv][now] -= mn_cap;
-        cap[now][prv] += mn_cap;
+        ll prv = path[now];
+        cap[eToe[prv][now]] -= mn_cap;
+        cap[eToe[now][prv]] += mn_cap;
         now = prv;
     }
-    if (mn_cap == INT_MAX)return 0;
+    if (path[now] == -1) {
+        now = sink;
+        while (~path[now]) {
+            ll prv = path[now];
+            ans[now] = prv;
+            now = prv;
+        }
+    }
+    if (mn_cap == INF)return 0;
     else return mn_cap;
-
 }
 
-int maxflow(int start, int sink, vvi &adj) {
-    int ans = 0;
+ll maxflow(ll start, ll sink) {
+    ll ans = 0;
     while (1) {
-        int capacity = find_path(start, sink, adj);
+        ll capacity = find_path(start, sink);
         if (!capacity)break;
         ans += capacity;
     }
     return ans;
-}
-
-int main() {
-    fast();
-    vvi adj(MAX);
-    adj[1].push_back(2);
-    adj[2].push_back(3);
-    adj[3].push_back(4);
-    adj[1].push_back(3);
-    cap[1][2]=1;
-    cap[1][3]=1;
-    cap[2][3]=2;
-    cap[3][4]=4;
-    cout<<maxflow(1,4,adj);
-    return 0;
-
 }

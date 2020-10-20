@@ -1,3 +1,4 @@
+-you can print the max flow using capacity array as every edge before the target must be has positive capacity 
 The Standard Maximum Flow Problem :
 
 1-A list of pipes is given, with different flow-capacities.
