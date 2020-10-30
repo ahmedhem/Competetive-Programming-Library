@@ -12,3 +12,11 @@ NCK %mod= N!/(n-k)!k! %mod = N!%mod*(mod inverse)
 logn
 https://www.commonlounge.com/discussion/0445dc0b5029441481a967ab96801599/b43e5370b8154f8ca8f63c3710a8a671
 very important discussion
+
+-
+get the max distance from every ndoe to anoter:
+let the  root = x;
+Get the distance from the roof to every node and store it .
+the node with max distance from x, we will call it y.
+Make another bfs from y to every node and store the distance in another array.
+for every node i, the maximum distance from it to any node is the max of arrayx[i],arrayy[i]

@@ -3,18 +3,18 @@ ll cap[MAX * MAX * 10];
 int eToe[MAX][MAX];
 ll weight[MAX], maxLift[MAX], ans[MAX * MAX * 10], head[MAX * MAX * 10], to[MAX * MAX * 10], nxt[MAX * MAX * 10], e = 0;
 
-void add_edge(ll i, ll j, ll cape) {
-    cap[e] = cape;
-    to[e] = j;
-    nxt[e] = head[i];
-    eToe[i][j] = e;
-    head[i] = e++;
-    cap[e] = 0;
-    to[e] = i;
-    nxt[e] = head[j];
-    eToe[j][i] = e;
-    head[j] = e++;
-}
+  void add_edge(ll i, ll j, ll cape) {
+      cap[e] = cape;
+      to[e] = j;
+      nxt[e] = head[i];
+      eToe[i][j] = e;
+      head[i] = e++;
+      cap[e] = 0;
+      to[e] = i;
+      nxt[e] = head[j];
+      eToe[j][i] = e;
+      head[j] = e++;
+  }
 
 ll find_path(ll start, ll sink) {
     queue<ll> q;
@@ -26,7 +26,7 @@ ll find_path(ll start, ll sink) {
     while (!q.empty()) {
         ll node = q.front();
         q.pop();
-        for (int k = head[node]; ~k; k = nxt[k]) {
+          for (int k = head[node]; ~k; k = nxt[k]) {
             int v = to[k];
             if (!vis[v] && cap[k] != 0) {
                 q.push(v);
