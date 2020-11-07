@@ -17,8 +17,7 @@ const int MAX = 1e2 + 5;
           int d = pq.top().first;
           int node = pq.top().second;
               if (node == e) {
-
-                  return d<=t;
+                  return d;
           }
           pq.pop();
           if (d > dist[node])continue;
@@ -33,28 +32,3 @@ const int MAX = 1e2 + 5;
 
       return 0;
   }
-
-/*************************************************/
-int main() {
-    std::ios_base::sync_with_stdio(false);
-    int t;cin>>t;
-    bool b=0;
-    while ( t--) {
-        adj.clear();
-        adj.resize(MAX);
-        if(b)cout<<endl;
-        b=1;
-        int n,e,t;cin>>n>>e>>t;
-        int m;cin>>m;
-        for (int i = 0; i < m; ++i) {
-            int a,b,c;cin>>a>>b>>c;
-            adj[a].push_back({b,c});
-        }
-        int ans=0;
-        for (int j = 1; j <=n ; ++j) {
-            ans+=dijkstra(j,t,e);
-        }
-        cout<<ans<<endl;
-    }
-
-}

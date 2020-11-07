@@ -9,7 +9,6 @@ bool bellmanford(vector<node> &adj, int source, int n) {
     clr(pre, -1);
     negative=0;
     fill(SP,SP+n+3,1e9);
-
     SP[source]=0;
     for (int k = 1; k <=n ; ++k) {
         adj.push_back({0, k,0});

@@ -15,5 +15,4 @@ int x, y,a,b;
 int g = extended_euclidean(a, m, x, y);
     x = (x % m + m) % m;
     return x;
-
 }
