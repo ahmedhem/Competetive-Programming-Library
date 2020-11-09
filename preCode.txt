@@ -1,0 +1,22 @@
+#include "bits/stdc++.h"
+
+using namespace std;
+typedef long long ll;
+typedef unsigned long long uint;
+typedef double dd;
+#define all(v) v.begin(),v.end()
+#define aint(v) v.begin(),v.end()
+#define endl "\n"
+#define clr(n, r) memset(n,r,sizeof(n))
+typedef bitset<10> MASK;
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef vector<ll> vi;
+typedef pair<int, int> pi;
+typedef vector<vector<int>> vvi;
+
+//set iterator can be increamnted and decreamnted
+void fast() {
+    cin.tie(0);
+    cin.sync_with_stdio(0);
+}
