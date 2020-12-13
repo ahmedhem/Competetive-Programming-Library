@@ -1,6 +1,4 @@
-//
-// Created by FAhma on 7/20/2020.
-//
+
 int vis[101] = {0};
 vector<vector<edg>>adj;
 struct edg {

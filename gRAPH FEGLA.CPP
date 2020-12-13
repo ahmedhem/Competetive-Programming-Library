@@ -5,3 +5,6 @@ void add_edge(ll i, ll j, ll cape) {
     nxt[e] = head[i];
     head[i] = e++;
 }
+for(int e=head[u];~e;e=nxt[e]){
+
+}

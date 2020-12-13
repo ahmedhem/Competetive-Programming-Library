@@ -1,7 +1,5 @@
 int main() {
-    cin.tie(0);
-    cin.sync_with_stdio(0);
-    string s,t,pat;
+    string s,pat;
     int n=s.size(),m=pat.size();
     int lps[n]={0};
     int i=1,j=0;
@@ -26,5 +24,4 @@ int main() {
             else j=lps[j-1];
         }
     }
-
 }

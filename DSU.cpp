@@ -39,19 +39,6 @@ struct DSU {
         }
         return 1;
     }
-
-    void mergeGroupByRank(int i, int j) {
-        int leader1 = findLeader(i);
-        int leader2 = findLeader(j);
-        if (leader1 == leader2)return;
-        if (rank[leader1] < rank[leader2])swap(leader1, leader2);
-        parent[leader2] = leader1;
-        if (rank[leader1] == rank[leader2])rank[leader1]++;
-        CC--;
-
-
-    }
-
     int getCC() {
         return CC;
     }
