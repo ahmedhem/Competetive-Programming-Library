@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
 typedef long long ll;
 #define endl "\n"
-
+ 
 void init() {
     cin.tie(0);
     cin.sync_with_stdio(0);
 }
-
 void countSort(vector<int> &p, vector<int> &c) {
     int n = c.size();
     vector<int> cnt(n), pos(n), new_p(n);
@@ -24,17 +23,16 @@ void countSort(vector<int> &p, vector<int> &c) {
         pos[c[p[i]]]++;
     }
     p = new_p;
-
+ 
 }
-
-vector<int> SuffixArray(string s) {
+ 
+void SuffixArray(vector<int> &p, vector<int> &c, string &s) {
     int n = s.size();
     vector<pair<char, int>> a(n);
     for (int i = 0; i < n; ++i) {
         a[i] = {s[i], i};
     }
     sort(a.begin(), a.end());
-    vector<int> p(n), c(n);
     for (int i = 0; i < n; ++i) p[i] = a[i].second;
     c[a[0].second] = 0;
     for (int i = 1; i < n; ++i) {
@@ -42,7 +40,6 @@ vector<int> SuffixArray(string s) {
     }
     int k = 0;
     while ((1 << k) < n) {
-        cout << endl;
         for (int i = 0; i < n; ++i) {
             p[i] = (p[i] - (1 << k) + n) % n;
         }
@@ -50,24 +47,23 @@ vector<int> SuffixArray(string s) {
         vector<int> c_new(n);
         c_new[p[0]] = 0;
         for (int i = 1; i < n; ++i) {
-            pair<int,int>right={c[p[i]],c[(p[i]+(1<<k))%n]};
-            pair<int,int>left={c[p[i-1]],c[(p[i-1]+(1<<k))%n]};
-            c_new[p[i]] = c_new[p[i - 1]] + (left!=right);
+            pair<int, int> right = {c[p[i]], c[(p[i] + (1 << k)) % n]};
+            pair<int, int> left = {c[p[i - 1]], c[(p[i - 1] + (1 << k)) % n]};
+            c_new[p[i]] = c_new[p[i - 1]] + (left != right);
         }
         c = c_new;
         k++;
     }
-    return p;
+ 
 }
-
-int main() {
-    init();
-    string s;
-    cin >> s;
-    s += '$';
-    vector<int> SA = SuffixArray(s);
-
-    for (int i = 0; i < SA.size(); ++i) {
-        cout << SA[i] << " ";
+ 
+void LCP(vector<int> &p, vector<int> &c, string &s, vector<int> &lcp) {
+    int n = p.size(), k = 0;
+    for (int i = 0; i < n - 1; ++i) {
+        int pos = c[i];
+        int j = p[pos - 1];
+        while (s[i + k] == s[j + k])k++;
+        lcp[pos] = k;
+        k = max(k - 1, 0);
     }
 }

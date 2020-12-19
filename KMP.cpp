@@ -1,27 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+string s, t;
+const int MAX=2e5;
+int f[MAX];
+void search() {
+	int len = 0;
+	for (int i = 0; i < s.size(); ++i) {
+		while (len>0 && s[i] != t[len])
+			len = f[len - 1];
+		if (s[i] == t[len])
+			++len;
+		if (len == t.size()) {
+			cout << i - len + 1 << endl;
+			len = f[len - 1];
+		}
+	}
+}
+void build() {
+	int len = 0;
+	f[0] = 0;
+	for (int i = 1; i < t.size(); ++i) {
+		while (len>0 && t[i] != t[len])
+			len = f[len - 1];
+		if (t[i] == t[len])
+			++len;
+		f[i] = len;
+	}
+}
 int main() {
-    string s,pat;
-    int n=s.size(),m=pat.size();
-    int lps[n]={0};
-    int i=1,j=0;
-    while(i<m){
-        if(pat[i]==pat[j]){
-            lps[i]=++j;
-            i++;
-        }else {
-            if(!j)lps[i]=0,i++;
-            else j=lps[j-1];
-        }
-    }
-    i=0,j=0;
-    while(i<n){
-        if(pat[j]==s[i]){
-            ++j;
-            i++;
-        }
-        if(j==m)cout<<i-(j-1)-1<<" ",j=lps[j-1];
-        else if(i<n&&pat[j]!=s[i]) {
-            if(!j)i++;
-            else j=lps[j-1];
-        }
-    }
+	//   01234567890123456789012345
+	s = "carcarcarcarcardcarcardcar";
+	t = "carcard";
+	build();
+	search();
+	return 0;
 }
