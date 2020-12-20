@@ -1,25 +1,49 @@
-
-const int MAX=26;
-struct trie{
-    trie* childs[MAX];
-    trie(){
-        memset(childs,0,sizeof(childs));
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+vector<vector<int>> trie;
+vector<bool> e; // to check for that is the end of a given word;
+void insert(string &s)
+{
+    int n = s.size(), cur = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int c = s[i] - 'a';
+        if (trie[cur][c] == -1)
+        {
+            int to = trie.size();
+            trie.push_back(vector<int>(26, -1));
+            trie[cur][c] = to;
+            e.push_back(false);
+        }
+        cur = trie[cur][c];
     }
-    void insert(char* str){
-        if(*str==0)return;
-        if(childs[*str-'0']==0)childs[*str-'0']=new trie();
-         childs[*str-'0']->insert(str+1);
+    e[cur] = true;
+}
+bool find(string &s)
+{
+    int n = s.size(), cur = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int c = s[i] - 'a';
+        if (trie[cur][c] == -1)return false;
+        
+        cur = trie[cur][c];
     }
-    bool isExists(char* str){
-//        cout<<*str<<" ";
-        if(*str==0)return true;
-        if(childs[*str-'0']==0)return false;
-         childs[*str-'0']->isExists(str+1);
+    return e[cur];
+}
+int main()
+{
+    e.push_back(false);
+    trie.push_back(vector<int>(26,-1));
+    int n;cin>>n;
+    while(n--){
+        string s;cin>>s;
+        insert(s);
     }
-};
-int main() {
-    fast();
-    trie t;
-    t.insert("abcd");
-    cout<<t.isExists("abcde");
+    int q;cin>>q;
+    while(q--){
+        string s;cin>>s;
+        cout<<find(s)<<endl;
+    }
 }
