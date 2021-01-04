@@ -29,9 +29,6 @@ void build() {
 }
 int main() {
 	//   01234567890123456789012345
-	s = "carcarcarcarcardcarcardcar";
-	t = "carcard";
-	build();
-	search();
+    cout<<(' '-'A');
 	return 0;
 }
