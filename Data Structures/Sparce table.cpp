@@ -17,16 +17,14 @@ void computeLog(int n, vector<int> &log) {
     }
 }
 
-void sparseTable(int n, vector<int> &log, vector<vector<int>> &ST, vector<int> &lcp) {
+void sparseTable(int n, vector<int> &log, vector<vector<int>> &st, vector<int> &lcp) {
     for (int i = 0; i < n; i++)
-        ST[i][0] = lcp[i];
-    for (int i = 1; i <= log[n]; ++i) {
-        for (int j = 0; j + (1 << i) <= n; ++j) {
-            ST[i][j] = min(ST[i - 1][j], ST[i - 1][j + (1 << (i - 1))]);
-        }
-    }
-}
-}
+        st[i][0] = lcp[i];
+    for (int j = 1; j <= log[n]; j++)
+        for (int i = 0; i + (1 << j) <= n; i++)
+            st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+
+
 
 int min_range(int l, int r, vector<int> &log, vector<vector<int>> &ST) {
     int len = r - l + 1;

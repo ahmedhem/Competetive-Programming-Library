@@ -15,7 +15,6 @@ typedef vector<ll> vi;
 typedef pair<int, int> pi;
 typedef vector<vector<int>> vvi;
 
-//set iterator can be increamnted and decreamnted
 void fast() {
     cin.tie(0);
     cin.sync_with_stdio(0);

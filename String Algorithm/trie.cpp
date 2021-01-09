@@ -61,9 +61,9 @@ int main()
     }
 }
 /***************another implementaion *********/
-const int MAXN = 1e5, MOD = 1e9 + 7, sigma = 255;
+const int MAXN = 1e5, MOD = 1e9 + 7, sigma = 26;
 
-int  to[(int)1e6/255][sigma],term[MAX],sz = 1, q;
+int  to[MAXN][sigma],term[MAXN],sz = 1, q;
 vector<vector<int>> pat(MAXN);
 
 void add_str(string s, int id) {
