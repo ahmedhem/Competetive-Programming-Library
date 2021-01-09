@@ -1,4 +1,4 @@
-vector<int> BFS2(int s, vector<vector<int> > & adjList) {
+vector<int> BFS(int s, vector<vector<int> > & adjList) {
 	vector<int> len(sz(adjList), OO);
 	queue<int> q;
 	q.push(s), len[s] = 0;
