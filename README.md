@@ -1,8 +1,6 @@
 # MyLibrary For Competetive programming
----
 
-1. Graph
-
+ 1. Graph :
     - [BFS](Graph%20Algorithm/BFS.cpp)
     - [Dijkstra](Graph%20Algorithm/dijkstra.cpp)
     - [Kruskal](Graph%20Algorithm/Kruskal.cpp)
@@ -11,6 +9,7 @@
     - [Tarjan](Graph%20Algorithm/TarjanSCC.cpp)
     - [Prim](Graph%20Algorithm/Prim.cpp)
     - [Bellman Ford](Graph%20Algorithm/bellman%20ford.cpp)
+    - [Khan's Algo](Graph%20Algorithm/Khans%20Algo.cpp)
    ---
 2. Strings
     - [Aho-Corsarick](String%20Algorithm/Aho-Corsarick.cpp)
