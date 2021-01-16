@@ -23,58 +23,68 @@ void fast() {
     cin.tie(0);
     cin.sync_with_stdio(0);
 }
-const int MAX=2e5+4;
-int in[MAX],out[MAX],n,m;
-vector<vector<int>>adj(MAX);
-vector<int>ans;
-void findOutIn(){
-    for (int i = 1; i <=n ; ++i)
-        for(auto to : adj[i])in[to]++,out[i]++;
-}
-bool checkIfHasEulirianPath(){
-    int start=0,end=0;
-    for (int i = 1; i <=n ; ++i) {
-        if(in[i]-out[i]>1||out[i]-in[i]>1){
-            return 0;
-        }
-        start+=(out[i]-in[i]==1);
-        end+=(in[i]-out[i]==1);
-    }
-    return (start==1&&end==1)||(!start&&!end);
+
+unordered_map<string, int> e;
+const int MAX = 2e5 + 4;
+int in[MAX], out[MAX], n,t;
+vector<vector<int>> adj(MAX);
+vector<int> ans;
+
+void findOutIn() {
+    for (int i = 1; i <= t; ++i)
+        for (auto to : adj[i])in[to]++, out[i]++;
 }
 
-void dfs(int node){
-    while(out[node]){
-        dfs(adj[node][--out[node]]);
-    }
-    ans.push_back(node);
-}
-//path
-bool checkIfHasEulirianCircuit(){
-    for (int i = 1; i <=n ; ++i) {
-        if(in[i]%2)return 0;
-    }
-    return 1;
-
-}
-//cirecuits
 int idx[MAX];
-set<pair<int,int>>ma;
-void dfs(int node,int p){
-    for ( idx[node]; idx[node] < adj[node].size(); ++idx[node]) {
-        int v=adj[node][idx[node]];
-       int tmp=node,tmp2=v;
-        if(tmp>tmp2)swap(tmp,tmp2);
-        if(ma[tmp].find(tmp2)!=ma[tmp].end())continue;
-        ma[tmp].insert(tmp2);
-        dfs(v,node);
+void dfs(int node,int val){
+    while(out[node]){
+        dfs(adj[node][--out[node]],out[node]-1);
     }
-    ans.push_back(node);
+    ans.push_back(val);
 }
-bool Hierholzer(){
+
+void Hierholzer() {
     findOutIn();
-    if(!checkIfHasEulirianPath())return 0;
-    dfs(1);
-    return ans.size()==m+1&&ans.back()==1&&*ans.begin()==n;
+    string s;
+
+    for (int i = 0; i < n-1; ++i) {
+        s+='0';
+    }
+    dfs(e[s],-1);
 }
-//don't forget to reverse
+
+int main() {
+    fast();
+    cin >> n;
+    if(n==1)return cout<<"01",0;
+    for (int i = 0; i < (1 << (n - 1)); ++i) {
+        bitset<15> x = i;
+        string s=x.to_string();
+        reverse(all(s));
+        s = s.substr(0, n - 1);
+
+        e[s] = ++t;
+    }
+    for (int i = 0; i < (1 << (n - 1)); ++i) {
+        bitset<15> x = i;
+        string s=x.to_string();
+        reverse(all(s));
+        s = s.substr(0, n - 1);
+        int u = e[s];
+        s.erase(s.begin());
+        string tmp = s + '0';
+        string tmp1 = s + '1';
+        adj[u].push_back(e[tmp]);
+        adj[u].push_back(e[tmp1]);
+    }
+    Hierholzer();
+    ans.pop_back();
+    for (int i = 0; i < n-1; ++i) {
+        ans.push_back(0);
+    }
+    reverse(all(ans));
+
+    for (auto i : ans)cout << i;
+
+
+}
