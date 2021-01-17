@@ -10,6 +10,10 @@
     - [Prim](Graph%20Algorithm/Prim.cpp)
     - [Bellman Ford](Graph%20Algorithm/bellman%20ford.cpp)
     - [Khan's Algo](Graph%20Algorithm/Khans%20Algo.cpp)
+    - [Tree Diameter](Graph%20Algorithm/TreeDiameter.cpp)
+    - [Binary Lifting](Graph%20Algorithm/Binary%20Lifting.cpp)
+    - [Eulirian Paths and Circuits](Graph%20Algorithm/Eulerian%20Paths%20and%20Circuits.cpp)
+    - [Berjwein Sequence](Graph%20Algorithm/berjwin%20sequence.cpp)
    ---
 2. Strings
     - [Aho-Corsarick](String%20Algorithm/Aho-Corsarick.cpp)
