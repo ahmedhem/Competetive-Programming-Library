@@ -1,4 +1,4 @@
-
+// you can use binarylifting also for find the kth child if every node has one child
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -40,7 +40,7 @@ int findKthAncestor(int node, int k) {
 void BinaryLifting() {
 
     for (int i = 1; i <= n; ++i) {
-        jump[i][0] = parent[i];
+        jump[i][0] = child[i];
     }
     for (int i = 1; i <= ceil(log2(n)); ++i) {
         for (int j = 1; j <= n; ++j) {
