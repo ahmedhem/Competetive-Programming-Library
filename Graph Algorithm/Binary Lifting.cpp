@@ -16,7 +16,7 @@ void fast() {
 }
 const int MAX = 2e4 + 10;
 int l = ceil(log2(MAX));
-vector<vector<int>> adj(MAX), jump(MAX, vector<int>(l));
+vector<vector<int>> adj(MAX), jump(MAX, vector<int>(l,-1));
 int n, m, parent[MAX];
 
 void dfs(int node, int p) {

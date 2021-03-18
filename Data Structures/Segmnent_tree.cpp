@@ -1,77 +1,104 @@
-ll *arr;
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <functional>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <stack>
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
+#include <vector>
 
-struct seg_tree {
-    // size of seg tree doesn't exceed 4*n
-    ll *seg;
-    ll *lazy;
-    seg_tree(int n) {
-        seg = new ll[n];
-        segcnt = new ll[n];
-        fill(seg, seg + n, 1e9 + 1);
-        fill(lazy, lazy  + n, 0);
-    }
-    void  check(int p, int l, int r) {
-        if (!lazy[p])return;
-        seg[p] += lazy[p];
-        if (l != 1) {
-            lazy[p * 2] += lazy[p];
-            lazy[p * 2 + 1] += lazy[p];
-        }
-        lazy[p]=0;
-    }
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef double dd;
+#define all(v) v.begin(),v.end()
+#define endl "\n"
+#define clr(n, r) memset(n,r,sizeof(n))
+typedef bitset<10> MASK;
 
-    void build(int num, int l, int r) { //nlogn where log n is the height of the tree
-        check(num,l,r);
-        if (l == r) {
-            seg[num] = arr[l];
-            return;
-        }
-        build(2 * num, l, (l + r) / 2);
-        build(2 * num + 1, (l + r) / 2 + 1, r);
-        ll mn = min(seg[2 * num], seg[2 * num + 1]);
-        seg[num] = mn;
-        return seg;
-
-    }
-
-    void update(int num, int l, int r, int i, ll v) { // logn
-        check(num,l,r);
-
-        if (l == r) {
-            seg[num] = v;
-            return;
-        }
-        if (i <= (l + r) / 2)update(num * 2, l, (l + r) / 2, i, v);
-        else update(num * 2 + 1, (l + r) / 2 + 1, r, i, v);
-        ll mn = min(seg[2 * num], seg[2 * num + 1]);
-        seg[num] = mn;
-        return seg;
-    }
-
-    int get(int p, int l, int r, int x, int y) {
-        check(num,l,r);
-        if (l >= x && r <= y)return seg[p];// |x   |l     r|    y|
-        if (l > y || r < x)return 1e9 + 1;//|x    y| |l    r|  or |l   r|  |x   y|
-        return min(get(2 * p, l, (l + r) / 2, x, y),get(2 * p + 1, (l + r) / 2 + 1, r, x, y));
-
-
-    }
-};
-/***************iterative**********/
-void update(int u, int x){
-	while(u < NN){
-		B[u] += x;
-  		u += u & (-u);
-	}
+void fast() {
+    cin.tie(0);
+    cin.sync_with_stdio(0);
 }
 
-int calc(int u){
-	int ss = 0 ;
-	while(u > 0){
-		ss += B[u];
-		u -= u & (-u);
-	}
-	return ss;
-}
-/********************/
+const int MAX = 100000 + 10;
+ll seg[4 * MAX], lazy[4 * MAX];
 
+void add(int p, int l, int r) {
+    seg[p] += lazy[p] * (r - l + 1);
+    if (l != r) {
+        lazy[p * 2] += lazy[p];
+        lazy[p * 2 + 1] += lazy[p];
+    }
+    lazy[p] = 0;
+}
+
+void update(int p, int l, int r, int x, int y, int val) {
+    add(p, l, r);
+    if (l >= x && r <= y) {
+        seg[p] += (ll) val * (r - l + 1); //notice that we add the whole sum to the segment not only the val
+        if (l != r) {
+            lazy[p * 2] += val;
+            lazy[p * 2 + 1] += val;
+        }
+        return;
+    }
+    if (l > y || r < x)return;
+    int mid = (l + r) / 2;
+    update(p * 2, l, mid, x, y, val);
+    update(p * 2 + 1, mid + 1, r, x, y, val);
+    seg[p] = seg[p * 2] + seg[p * 2 + 1];
+}
+
+ll get(int p, int l, int r, int x) {
+    add(p, l, r);
+    if (l == r)return seg[p];
+    int mid = (l + r) / 2;
+    if (x > mid)return get(p * 2 + 1, mid + 1, r, x);
+    else return get(p * 2, l, mid, x);
+}
+
+ll get(int p, int l, int r, int x, int y) {
+    add(p, l, r);
+    if (l >= x && r <= y)return seg[p];
+    if (l > y || r < x)return 0;
+    int mid = (l + r) / 2;
+    return get(p * 2, l, mid, x, y) + get(p * 2 + 1, mid + 1, r, x, y);
+}
+
+int main() {
+    fast();
+    int n, q;
+    cin >> n >> q;
+
+    while (q--) {
+        int p;
+        cin >> p;
+        if (p == 1) {
+            int l, r, v;
+            cin >> l >> r >> v;
+            update(1, 0, n - 1, l, r - 1, v);
+        } else {
+            int x;
+            cin >> x;
+            cout << get(1, 0, n - 1, x, x) << endl;
+        }
+    }
+}

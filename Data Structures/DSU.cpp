@@ -3,7 +3,7 @@ const int MAX = 1e4 + 5;
 
 struct DSU {
     int parent[MAX];
-    int groupaSize[MAX];
+    int groupSize[MAX];
     int rank[MAX];
     int CC;
 

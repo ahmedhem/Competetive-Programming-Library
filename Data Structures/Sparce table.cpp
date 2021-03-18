@@ -24,7 +24,7 @@ void sparseTable(int n, vector<int> &log, vector<vector<int>> &st, vector<int> &
         for (int i = 0; i + (1 << j) <= n; i++)
             st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
 
-
+}
 
 int min_range(int l, int r, vector<int> &log, vector<vector<int>> &ST) {
     int len = r - l + 1;
