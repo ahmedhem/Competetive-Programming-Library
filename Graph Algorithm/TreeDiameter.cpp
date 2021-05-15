@@ -30,6 +30,13 @@ void findFarth(int node, int p, int dep, int &val, int &mxDist) {
         if (v != p)findFarth(v, node, dep + 1, val, mxDist);
     }
 }
+int findDiameter(){
+    int mx = -1;
+    findFarth(1, -1, 0, start, mx);
+    mx = -1;
+    findFarth(start, -1, 0, e, mx);
+    return mx;
+}
 int main(){
     fast()
     cin >> n;

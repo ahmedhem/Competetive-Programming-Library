@@ -38,20 +38,22 @@ void fast() {
     cin.sync_with_stdio(0);
 }
 
-const int MAX = 2e5;
-int disc[MAX], low[MAX], lowTime[MAX], Time = 0, AP[MAX], c = 0, comp[MAX];
+const int MAX = 5e5+5;
+int disc[MAX], low[MAX], lowTime[MAX], Time = 0, AP[MAX], c = 0, comp[MAX],insStack[MAX];
 vector<vector<int>> adj(MAX);
 vector<vector<int>> comps;
 vector<pair<int, int>> bridges;
 stack<int> st;
-
-void tarjan(int u, int p) {
+void addEdge(int u,int v){
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
+int tarjan(int u, int p) {
     int children = 0;
     low[u] = disc[u] = ++Time;
     st.push(u);
+    insStack[u]=1;
     for (int &v : adj[u]) {
-        if (v == p) continue; // we don't want to go back through the same path.
-        // if we go back is because we found another way back
         if (!disc[v]) { // if V has not been discovered before
             children++;
             tarjan(v, u); // recursive DFS call
@@ -60,22 +62,37 @@ void tarjan(int u, int p) {
             if (disc[u] <= low[v]) // condition #1
                 AP[u] = 1;
             low[u] = min(low[u], low[v]); // low[v] might be an ancestor of u
-        } else // if v was already discovered means that we found an ancestor
+        } else if(insStack[v])// if v was already discovered means that we found an ancestor
             low[u] = min(low[u], disc[v]); // finds the ancestor with the least discovery time
     }
     if (disc[u] == low[u]) {
         vector<int> component;
         c++;
-        while (st.top() != u) {
+        while (1) {
             int v = st.top();
             st.pop();
             component.push_back(v);
             comp[v] = c;
+            insStack[v]=0;
+            if(v==u)break;
         }
         comps.push_back(component);
     }
+    return children;
 }
+int main(){
+    fast();
+    int n,m;cin>>n>>m;
+    for (int i = 0; i < m; ++i) {
+        int u,v;cin>>u>>v;
+        u--;v--;
+        addEdge(u,v);
+    }
+    for (int i = 0; i < n; ++i) {
+        if(!disc[i]){
+            AP[i]&=(tarjan(i,i)>1);
+        }
+    }
 
-int main() {
 
 }

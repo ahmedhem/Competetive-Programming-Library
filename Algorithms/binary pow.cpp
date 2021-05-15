@@ -5,5 +5,5 @@ long long binpow(long long a, long long b, long long m) {
         a = a * a % m;
         b >>= 1;
     }
-
+    return ret;
 }

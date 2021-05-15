@@ -1,15 +1,4 @@
 
-#include <bits/stdc++.h>
- 
-using namespace std;
-typedef long long ll;
-#define endl "\n"
- 
-void init() {
-    cin.tie(0);
-    cin.sync_with_stdio(0);
-}
- 
 void computeLog(int n, vector<int> &log) {
     log[1]=0;
     for (int i = 2; i <= n; ++i) {

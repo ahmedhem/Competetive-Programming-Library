@@ -1,18 +1,6 @@
-#include <bits/stdc++.h>
+/*
 
-using namespace std;
-typedef long long ll;
-typedef unsigned long long ull;
-typedef double dd;
-#define all(v) v.begin(),v.end()
-#define endl "\n"
-#define clr(n, r) memset(n,r,sizeof(n))
-typedef bitset<10> MASK;
-
-void fast() {
-    cin.tie(0);
-    cin.sync_with_stdio(0);
-}
+ */
 const int MAX=1e3;
 ll nck[MAX][MAX], modInv[MAX];
 
@@ -45,7 +33,15 @@ void NcK(ll n, ll k) {
         }
     }
 }
-
+void NcK(ll n) { // using pascal Triangle
+    for (ll i =0; i <= n; ++i) {
+        for (ll j = 0; j <= i; ++j) {
+            if(!j||i==j)nck[i][j]=1;
+            else
+                nck[i][j] = nck[i-1][j] + nck[i-1][j-1];
+        }
+    }
+}
 void generateModInverse(int n) {
     for (int i = 1; i <= n; ++i) {
         modInv[i] = modularInverse(i, mod);

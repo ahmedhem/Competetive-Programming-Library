@@ -1,4 +1,15 @@
-int extended_euclidean(int a, int b, int& x, int& y) {
+//modular inverse using extended euclidean
+int gcd(int a, int b, int &x, int &y) {
+    if (a < 0) {
+        int d = gcd(-a, b, x, y);
+        x *= -1;
+        return d;
+    }
+    if (b < 0) {
+        int d = gcd(a, -b, x, y);
+        y *= -1;
+        return d;
+    }
     if (b == 0) {
         x = 1;
         y = 0;
@@ -10,12 +21,16 @@ int extended_euclidean(int a, int b, int& x, int& y) {
     y = x1 - y1 * (a / b);
     return d;
 }
-int modularInverse(int a,int m){
-int x, y,a,b;
-int g = extended_euclidean(a, m, x, y);
-    x = (x % m + m) % m;
+
+int findModularinverseusingconguernce(int a,int b,int n){
+    int x,y;
+    int g = gcd(a,n,x,y);
+    if(b%g)return 0;
+    x = x * (b/g);
+    x = (x+n)%n;
     return x;
 }
+
 /***another approach using binary power when m is prime****/
 long long binpow(long long a, long long b, long long m) {
     a %= m;
