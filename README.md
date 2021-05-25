@@ -28,9 +28,16 @@
     - [DSU](Data%20Structures/DSU.cpp)
     - [Sparse Table](Data%20Structures/Sparce%20table.cpp)
    ---
-4. other Algorithms
-    - [Ternary Search](Algorithms/ternary%20search.cpp)
-    - [Modular Inverse](Algorithms/Modular%20inverse.cpp)
-    - [Kadane's algorithm](Algorithms/Kadane's%20algorithm.cpp)
-    - [Binary Power](Algorithms/binary%20pow.cpp)  
+   
+4. Number Theory
+    - [Diphonatite Equations](Number%20Theory/Diphonatite%20Equations.cpp)
+    - [Chienese Reminder Theorim](Number%20Theory/Chienese%20Reminder%20Theorim.cpp)
+    - [Mobius Function](Number%20Theory/Mobius%20Function.cpp)
+    - [euilar totient](Number%20Theory/euilar%20totient%20.cpp)
+   ---
+   
+
+5. other Algorithms
+    - [Ternary Search](Misc./ternary%20search.cpp)
+    - [Parallel Binary Search](Misc./Parallel%20Binary%20Search.cpp)
    
