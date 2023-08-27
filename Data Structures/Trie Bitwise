@@ -1,0 +1,28 @@
+struct node {
+    int to[2];
+    int cnt;
+    node() {
+        to[0] = to[1] = -1;
+        cnt = 0;
+    }
+};
+
+bool bit(int mask, int pos) {
+    return (mask >> pos) & 1;
+}
+
+vector<node> t;
+
+void add(int x) {
+    int v = 0;
+    for (int i = 29; i >= 0; --i) {
+        int b = bit(x, i);
+        if (t[v].to[b] == -1) {
+            t[v].to[b] = sz(t);
+            t.pb(node());
+        }
+        ++t[v].cnt;
+        v = t[v].to[b];
+    }
+    ++t[v].cnt;
+}
